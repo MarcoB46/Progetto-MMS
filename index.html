@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html lang="it">
+
+	<head>
+
+	  <title>Progetto MMS</title>
+
+
+		<!-- |||||||||||||||||||||||||||||||||||||||||| LIBRERIE OFFLINE ||||||||||||||||||||||||||||||||||||||||||| -->
+
+
+		<script src="lib/jquery.min.js"></script>
+
+
+		<script src="lib/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="lib/jquery-ui.css">
+
+
+		<link rel="stylesheet" href="lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="lib/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<script src="lib/bootstrap-3.3.7-dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+		<script src="lib/bootstrap-slider.js"></script>
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap-slider.css" media="all"/>
+
+
+		<script src="lib/p5.js"></script>
+		<script src="lib/p5.dom.js"></script>
+
+
+		<script src="lib/bootstrap-switch-3.3.4/dist/js/bootstrap-switch.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap-switch-3.3.4/dist/css/bootstrap2/bootstrap-switch.min.css" media="all"/>
+
+
+		<script src="lib/plotly-latest.min.js"></script>
+
+
+		<!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+
+
+		<!-- |||||||||||||||||||||||||||||||||||||||||| LIBRERIE ONLINE ||||||||||||||||||||||||||||||||||||||||||| -->
+
+
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+		<script src="lib/bootstrap-slider.js"></script>
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap-slider.css" media="all"/>
+
+
+		<script src="lib/p5.js"></script>
+		<script src="lib/p5.dom.js"></script>
+
+
+		<script src="lib/bootstrap-switch-3.3.4/dist/js/bootstrap-switch.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap-switch-3.3.4/dist/css/bootstrap2/bootstrap-switch.min.css" media="all"/>
+
+
+		<script src="lib/plotly-latest.min.js"></script> -->
+
+
+		<!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+
+
+		<script src="sketch.js"></script>
+
+
+		<meta charset="UTF-8">
+
+		<!-- Disabilità popup un-zoom  -->
+		<style>
+			div.plotly-notifier {
+			  visibility: hidden;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+	  <div class="container-fluid"  style="margin-top:2%;">
+
+	    <!-- AREA PRINCIPALE -->
+	    <div id="main" class="col-md-12">
+
+				<div id="sx" class="col-md-4">
+					<ul class="nav nav-tabs">
+					  <li class="active"><a data-toggle="tab" href="#slider">Impostazioni</a></li>
+					  <li><a data-toggle="tab" href="#log">Statistiche</a></li>
+						<li><a data-toggle="tab" href="#funzioneDivP">Funzione</a></li>
+					</ul>
+
+					<div class="tab-content col-md-12">
+						<div id="slider" class="tab-pane fade in active col-md-12" style="height:600px;">
+
+							<h3>Numero stazioni</h3>
+							<input id="ex1" style="width:100%" type="text" data-slider-min="2" data-slider-max="6" data-slider-step="1" data-slider-value="6"/>
+							</br>
+							<span id="ex1CurrentSliderValLabel">Valore attuale: <span id="ex1SliderVal">6</span></span>
+
+							<h3>Frequenza</h3>
+							<input id="ex2" style="width:100%" type="text" data-slider-min="1" data-slider-max="100" data-slider-step="1" data-slider-value="30"/>
+							</br>
+							<span id="ex2CurrentSliderValLabel">Valore attuale: <span id="ex2SliderVal">30</span></span>
+
+
+							<h3>Velocità</h3>
+							<input id="ex3" style="width:100%" type="text" data-slider-min="1" data-slider-max="10" data-slider-step="1" data-slider-value="4"/>
+							</br>
+							<span id="ex3CurrentSliderValLabel">Valore attuale: <span id="ex3SliderVal">4</span></span>
+
+
+							<h3>Modalità</h3>
+							<input id="modSwitch" type="checkbox" name="my-checkbox" style="width:50%;" checked>
+							<script>
+								$("#modSwitch").bootstrapSwitch({
+									'onText': "Pure",
+									'offText': "Slotted",
+									'labelText': 'Aloha',
+									'handleWidth': '182'
+								});
+							</script>
+
+
+							<div class="col-md-12" style="padding-left:0; padding-right:0">
+								<form action="simulazione.html" method="post">
+									<button type="button" class="btn btn-primary" id="pausaBtn" style="margin-top:10%"><span class="glyphicon glyphicon-pause" aria-hidden="true"> </span> Pausa</button>
+									<button type="button" class="btn btn-primary" id="resetBtn" style="margin-top:10%"><span class="glyphicon glyphicon-repeat" aria-hidden="true"> </span> Reset</button>
+									<button type="submit" class="btn btn-primary" id="statsBtn" style="float:right; margin-top:10%"><span class="glyphicon glyphicon-signal" aria-hidden="true"> </span> Simulazione</button>
+								</form>
+							</div>
+
+						</div>
+
+						<div id="log" class="col-md-12 tab-pane fade" style="padding-left:0; margin-top: 5%;" >
+							<table class="table table-striped">
+							  <thead>
+									<th>Nome</th>
+									<th>N° Trasmessi</th>
+									<th>N° Collisioni</th>
+									<th>Throughput (%)</th>
+								</thead>
+								<tbody id="tbodyStats">
+								</tbody>
+							</table>
+						</div>
+
+						<div id="funzioneDivP" class="col-md-12 tab-pane fade" style="position: absolute; left: -80px;">
+							<div id="funzione">
+							</div>
+						</div>
+
+					</div>
+			</div>
+
+				<div id="dx" class="col-md-8" style="padding-left: 1%">
+
+					<div id="sketch" class="col-md-12" style="height: 600px;" >
+					</div>
+
+				</div>
+
+
+
+
+			<!-- CHIUDO IL DIV MAIN -->
+			</div>
+
+	  <!-- CHIUDO IL CONTENITORE -->
+	  </div>
+
+
+
+  </body>
+
+
+
+</html>

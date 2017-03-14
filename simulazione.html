@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html lang="it">
+
+	<head>
+
+	  <title>Progetto MMS</title>
+
+
+		<!-- |||||||||||||||||||||||||||||||||||||||||| LIBRERIE OFFLINE ||||||||||||||||||||||||||||||||||||||||||| -->
+
+
+		<script src="lib/jquery.min.js"></script>
+
+
+		<script src="lib/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="lib/jquery-ui.css">
+
+
+		<link rel="stylesheet" href="lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="lib/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<script src="lib/bootstrap-3.3.7-dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+
+		<script src="lib/p5.js"></script>
+		<script src="lib/p5.dom.js"></script>
+
+
+		<script src="lib/bootstrap-switch-3.3.4/dist/js/bootstrap-switch.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap-switch-3.3.4/dist/css/bootstrap2/bootstrap-switch.min.css" media="all"/>
+
+		<script src="lib/plotly-latest.min.js"></script>
+
+
+		<!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+		<!-- |||||||||||||||||||||||||||||||||||||||||| LIBRERIE ONLINE ||||||||||||||||||||||||||||||||||||||||||| -->
+
+
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+		<script src="lib/p5.js"></script>
+		<script src="lib/p5.dom.js"></script>
+
+
+		<script src="lib/bootstrap-switch-3.3.4/dist/js/bootstrap-switch.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap-switch-3.3.4/dist/css/bootstrap2/bootstrap-switch.min.css" media="all"/>
+
+
+		<script src="lib/plotly-latest.min.js"></script> -->
+
+
+		<!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+
+
+
+		<script src="simulazione.js"></script>
+
+
+		<meta charset="UTF-8">
+
+		<!-- Disabilità popup un-zoom  -->
+		<style>
+			div.plotly-notifier {
+			  visibility: hidden;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+	  <div class="container-fluid"  style="margin-top:2%;">
+
+	    <!-- AREA PRINCIPALE -->
+	    <div id="main" class="col-md-12">
+
+				<ul class="nav nav-tabs col-md-10 col-md-offset-1">
+					<li class="active"><a data-toggle="tab" href="#singleRun">Simulazione</a></li>
+					<li><a data-toggle="tab" href="#multipleRunPure">Risultati Simulazione "Pure"</a></li>
+					<li><a data-toggle="tab" href="#multipleRunSlotted">Risultati Simulazione "Slotted"</a></li>
+					<li style="float:right;"><a href="index.html"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></a></li>
+				</ul>
+
+				<div class="tab-content col-md-10 col-md-offset-1" style="margin-top:2%">
+					<div id="singleRun" class="tab-pane fade in active col-md-12">
+
+						<table class="table table-striped">
+							<thead>
+								<th>N° Stazioni</th>
+								<th>N° Totale Frame</th>
+								<th>N° Frame Accettati</th>
+								<th>N° Frame Rifiutati</th>
+								<th>Throughput (%)</th>
+							</thead>
+							<tbody id="tbodyStats">
+							</tbody>
+						</table>
+
+						<div id="funzioneDivP" class="col-md-12" >
+							<div id="funzione">
+							</div>
+						</div>
+
+						<div id="buttonDiv" class="col-md-12" style="padding: 0px; margin-top:3%; margin-bottom:3%">
+
+							<div style="float:left;">
+								<input id="modSwitch" type="checkbox" name="my-checkbox" checked>
+								<script>
+									$("#modSwitch").bootstrapSwitch({
+										'onText': "Pure",
+										'offText': "Slotted",
+										'labelText': 'Aloha',
+										'handleWidth': '120'
+									});
+								</script>
+							</div>
+
+							<div style="float:right;">
+								<button type="button" class="btn btn-primary" id="pausaBtn"><span class="glyphicon glyphicon-pause" aria-hidden="true"> </span> Pausa</button>
+								<button type="button" class="btn btn-primary" id="resetBtn"><span class="glyphicon glyphicon-repeat" aria-hidden="true"> </span> Reset</button>
+							</div>
+
+							<div style="clear:both">
+								<div id="sketch" style="" hidden></div>
+							</div>
+
+						</div>
+					</div>
+
+					<div id="multipleRunPure" class="col-md-12 tab-pane fade">
+
+						<!-- Funzione da scrivere a mano -->
+						<div id="functionMultipleRunPure" style="width: 1200px; height: 600px;">
+						</div>
+
+						<script>
+							var data = [
+								{
+									name: "Simulazione",
+									x: [100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,
+											1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000,3100,3200,3300,
+											3400,3500,3600,3700,3800,3900,4000,4100,4200,4300,4400,4500,4600,4700,4800,4900,
+											5000,5100,5200,5300,5400,5500,5600,5700,5800,5900,6000,6100,6200,6300,6400,6500,
+											6600,6700,6800,6900,7000,7100,7200,7300,7400,7500,7600,7700,7800,7900,8000,8100,
+											8200,8300,8400,8500,8600,8700,8800,8900,9000,9100,9200,9300,9400,9500,9600,9700,
+											9800,9900,10000],
+									y: [17.097,17.097,17.741,18.468,18.194,18.548,18.385,18.185,18.353,18.226,18.297,
+										18.44,18.335,18.227,18.235,18.329,18.427,18.332,18.3,18.323,18.343,18.403,18.347,
+										18.374,18.387,18.339,18.305,18.293,18.3,18.355,18.367,18.318,18.259,18.313,18.351,
+										18.352,18.275,18.301,18.274,18.323,18.322,18.333,18.312,18.365,18.357,18.323,18.321,
+										18.321,18.295,18.323,18.306,18.32,18.343,18.32,18.303,18.305,18.326,18.354,18.34,
+										18.345,18.345,18.342,18.366,18.359,18.367,18.371,18.35,18.337,18.355,18.342,18.378,
+										18.372,18.37,18.343,18.37,18.391,18.385,18.379,18.382,18.389,18.407,18.398,18.404,
+										18.401,18.422,18.409,18.392,18.392,18.386,18.389,18.385,18.37,18.376,18.391,18.382,
+										18.371,18.366,18.375,18.392,18.387],
+									error_y: {
+										type: 'data',
+										array: [],
+										visible: true
+									},
+									type: 'scatter'
+								},
+								{
+									name: "Valore teorico",
+									x: [300, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000],
+									y: [18.4, 18.4, 18.4, 18.4, 18.4, 18.4, 18.4, 18.4, 18.4, 18.4, 18.4],
+									type: 'scatter'
+								}
+							];
+
+
+							var arrIns = [
+								4.4385,3.0018,1.7124,1.5373,1.2697,1.1329,1.038,0.8248,0.8287,0.8107,0.7477,
+								0.6805,0.5652,0.5369,0.5842,0.5596,0.4856,0.4816,0.4359,0.356,0.3664,0.3609,
+								0.3637,0.3602,0.3351,0.3281,0.2804,0.2596,0.3185,0.28,0.2733,0.271,0.2392,
+								0.2388,0.2366,0.212,0.2234,0.2328,0.2113,0.1976,0.1707,0.1845,0.2063,0.192,
+								0.1984,0.1891,0.1607,0.1627,0.1608,0.1586,0.1716,0.1708,0.1577,0.1502,0.1385,
+								0.1605,0.1594,0.1448,0.1468,0.1391,0.1341,0.1285,0.1306,0.1367,0.1369,0.1325,
+								0.1319,0.1141,0.105,0.1374,0.1307,0.1197,0.1248,0.1157,0.1197,0.1164,0.1062,
+								0.1117,0.1188,0.1094,0.1093,0.0905,0.1035,0.1211,0.1064,0.1075,0.1059,0.0936,
+								0.0957,0.0909,0.0902,0.0984,0.1024,0.0936,0.087,0.0839,0.1013,0.0978,0.0913,0.0888
+							];
+
+							data[0].error_y.array.push(undefined);
+							data[0].error_y.array.push(undefined);
+							data[0].error_y.array.push(arrIns[2]);
+							for(var i=3; i < arrIns.length; i++){
+								if((i+1)%10 == 0) data[0].error_y.array.push(arrIns[i]);
+								else data[0].error_y.array.push(undefined);
+							}
+
+
+							Plotly.newPlot('functionMultipleRunPure', data, {}, { displayModeBar: false });
+						</script>
+
+					</div>
+
+					<div id="multipleRunSlotted" class="col-md-12 tab-pane fade">
+
+						<div id="functionMultipleRunSlotted" style="width: 1200px; height: 600px;">
+						</div>
+
+						<script>
+							var data = [
+								{
+									name: "Simulazione",
+									x: [100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,
+											1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000,3100,3200,3300,
+											3400,3500,3600,3700,3800,3900,4000,4100,4200,4300,4400,4500,4600,4700,4800,4900,
+											5000,5100,5200,5300,5400,5500,5600,5700,5800,5900,6000,6100,6200,6300,6400,6500,
+											6600,6700,6800,6900,7000,7100,7200,7300,7400,7500,7600,7700,7800,7900,8000,8100,
+											8200,8300,8400,8500,8600,8700,8800,8900,9000,9100,9200,9300,9400,9500,9600,9700,
+											9800,9900,10000],
+									y: [37.677,36.952,36.935,36.476,36.652,36.634,36.617,36.615,36.516,36.565,36.566,
+											36.517,36.466,36.521,36.618,36.542,36.559,36.614,36.659,36.637,36.612,36.631,
+											36.657,36.658,36.64,36.671,36.674,36.684,36.668,36.685,36.701,36.72,36.721,
+											36.706,36.74,36.75,36.744,36.747,36.748,36.786,36.77,36.794,36.799,36.823,
+											36.811,36.803,36.814,36.814,36.833,36.802,36.813,36.803,36.816,36.819,36.821,
+											36.82,36.825,36.836,36.832,36.836,36.834,36.834,36.839,36.837,36.839,36.83,
+											36.841,36.846,36.854,36.847,36.848,36.86,36.847,36.839,36.83,36.838,36.838,
+											36.821,36.819,36.81,36.814,36.81,36.812,36.8,36.814,36.812,36.794,36.794,36.791,
+											36.802,36.784,36.782,36.771,36.785,36.776,36.766,36.77,36.763,36.763,36.758],
+									error_y: {
+										type: 'data',
+										array: [],
+										visible: true
+									},
+									type: 'scatter'
+								},
+								{
+									name: "Valore teorico",
+									x: [300, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000],
+									y: [36.8, 36.8, 36.8, 36.8, 36.8, 36.8, 36.8, 36.8, 36.8, 36.8, 36.8],
+									type: 'scatter'
+								}
+							];
+
+							var arrIns = [
+								1.5408,1.235,0.911,0.7497,0.7016,0.5868,0.4843,0.4833,0.4747,
+								0.4673,0.3961,0.4157,0.4156,0.3999,0.3686,0.3833,0.3677,0.361,
+								0.3723,0.3559,0.3448,0.3682,0.3498,0.3574,0.3409,0.36,0.3451,
+								0.343,0.3244,0.3283,0.3283,0.3163,0.3257,0.3163,0.3204,0.3138,
+								0.3214,0.3104,0.3102,0.3059,0.2902,0.2873,0.2869,0.2835,0.284,
+								0.279,0.2751,0.2805,0.2667,0.2601,0.2571,0.2535,0.2359,0.23,
+								0.224,0.2172,0.2095,0.204,0.2041,0.2016,0.1947,0.1852,0.1822,
+								0.1755,0.1703,0.1624,0.1578,0.1528,0.1493,0.1403,0.1352,0.1285,
+								0.1255,0.1193,0.1146,0.1138,0.1069,0.0994,0.0965,0.0937,0.0835,
+								0.0767,0.0745,0.0727,0.0697,0.0746,0.072,0.073,0.0688,0.0698,
+								0.0686,0.0679,0.0665,0.0632,0.0583,0.0569,0.0606,0.0602,0.0609,0.0673
+							];
+
+							data[0].error_y.array.push(undefined);
+							data[0].error_y.array.push(undefined);
+							data[0].error_y.array.push(arrIns[2]);
+							for(var i=3; i < arrIns.length; i++){
+								if((i+1)%10 == 0)	data[0].error_y.array.push(arrIns[i]);
+								else data[0].error_y.array.push(undefined);
+							}
+
+
+							Plotly.newPlot('functionMultipleRunSlotted', data, {}, { displayModeBar: false });
+
+
+						</script>
+					</div>
+
+				</div>
+
+			<!-- CHIUDO IL DIV MAIN -->
+			</div>
+
+	  <!-- CHIUDO IL CONTENITORE -->
+	  </div>
+
+
+
+  </body>
+
+
+
+</html>
